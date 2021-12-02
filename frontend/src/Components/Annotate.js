@@ -18,7 +18,7 @@ const Annotate=() =>{
             console.log(err);
         }
         URL.revokeObjectURL(imgUrl)
-        navigator('/')
+        //navigate('/')
     }
 
     function hex2a(str1)

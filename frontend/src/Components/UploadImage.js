@@ -26,6 +26,9 @@ const UploadImage = () =>{
    const ann = () =>{
     const encUrl = a2hex(fileUrl);
     const encName = a2hex(fileName)
+    if(encName===""){
+        alert("Enter a name for the image")
+        return}
     navigate(`/annotate/${encUrl}/${encName}`);
     }
 

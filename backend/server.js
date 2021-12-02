@@ -38,16 +38,24 @@ app.get('/',(req,res)=>{
 app.post('/addAnno',(req,res)=>{
     //res.json('Succ');
     const formData = req.body;
-    const sql = `INSERT INTO annotation (classID,xCoor,yCoor,leng, height,imgName ) VALUES (${formData.annotations},"${formData.imgName}")`
-    console.log(sql);
-    db.query(sql,(err,results)=>{
-        if(err){
-            console.log(err)
-        }
+    const anno = formData.annotations.split(',');
+    const annoLen = anno.length;
+    console.log(anno);
+    for(let i=0;i<annoLen;i=i+5){
+        let thisAnno = `${anno[i]},${anno[i+1]},${anno[i+2]},${anno[i+3]},${anno[i+4]}`
+        let sql = `INSERT INTO annotation (classID,xCoor,yCoor,leng, height,imgName ) VALUES (${thisAnno},"${formData.imgName}")`
+        db.query(sql,(err,results)=>{
+            if(err){
+                console.log(err)
+            }
+    
+            console.log(results);
+        })
+    };
+    
+    res.send("Success")
 
-        res.send(results)
-        console.log(results);
-    })
+    /** */
 })
 
 app.get('/addAnno',(req,res)=>{
@@ -61,23 +69,6 @@ app.get('/addAnno',(req,res)=>{
         res.send(results);
 
     })
-})
-
-
-app.post('/addClass',(req,res)=>{
-    //res.json('Succ');
-    const formData = req.body;
-    const sql = `INSERT INTO class (name ) VALUES ("${formData.name}"")`
-    console.log(sql);
-    /*
-    db.query(sql,(err,results)=>{
-        if(err){
-            console.log(err)
-        }
-
-        res.send(results)
-        console.log(results);
-    })*/
 })
 
 
